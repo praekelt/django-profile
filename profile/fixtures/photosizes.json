@@ -1,0 +1,1 @@
+[{"pk": 100, "model": "photologue.photosize", "fields": {"name": "avatar_thumb", "watermark": null, "increment_count": false, "effect": null, "crop": true, "height": 50, "width": 50, "upscale": true, "pre_cache": false, "quality": 70}}]
