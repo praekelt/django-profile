@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Profile(models.Model):
+from photologue.models import ImageModel
+
+class Profile(ImageModel):
     user = models.ForeignKey(
         User, 
         unique=True
