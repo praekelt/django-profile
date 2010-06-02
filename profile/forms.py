@@ -5,14 +5,17 @@ from profile.models import AbstractAvatarProfile, AbstractProfileBase, AbstractL
 
 from registration.forms import RegistrationForm
 
-class SubscriptionsForm(ModelForm):
+class SubscriptionsModelForm(ModelForm):
     class Meta:
         model = AbstractSubscriptionProfile
 
-class RegistrationFormSubscriptions(RegistrationForm):
+class SubscriptionsForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        super(RegistrationFormSubscriptions, self).__init__(*args, **kwargs)
-        self.fields.update(SubscriptionsForm().fields)
+        super(SubscriptionsForm, self).__init__(*args, **kwargs)
+        self.fields.update(SubscriptionsModelForm().fields)
+
+class RegistrationFormSubscriptions(RegistrationForm, SubscriptionsForm):
+    pass
 
 class LocationModelForm(ModelForm):
     class Meta:
