@@ -1,5 +1,5 @@
 {% if profile and profile.image %}
-    <img src="{{ profile.get_avatar_thumb_url }}" width="50" height="50" alt="" />
+    <img src="{{ profile.get_avatar_thumb_url }}" width="{{ width }}" height="{{ height }}" alt="" />
 {% else %}
-    <img src="{% url default_avatar_thumb %}" width="50" height="50" alt="" />
+    <img src="{% url default_avatar_thumb %}" width="{{ width }}" height="{{ height }}" alt="" />
 {% endif %}
