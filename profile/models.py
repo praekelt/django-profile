@@ -1,13 +1,28 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 from photologue.models import ImageModel
 
-class Profile(ImageModel):
+class AbstractProfileBase(models.Model):
+    class Meta:
+        abstract = True
+
     user = models.ForeignKey(
         User, 
         unique=True
     )
+    
+    def __unicode__(self):
+        return self.user.username
+    
+class AbstractAvatarProfile(ImageModel):
+    class Meta:
+        abstract = True
+
+class AbstractSocialProfile(models.Model):
+    class Meta:
+        abstract = True
+    
     facebook_id = models.CharField(
         max_length=128,
         blank=True, 
@@ -33,8 +48,52 @@ class Profile(ImageModel):
         else:
             return None
 
-    def __unicode__(self):
-        return self.user.username
-  
-# Create User profile property which gets or creates an empty profile for the given user
-User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
+class AbstractLocationProfile(models.Model):
+    class Meta:
+        abstract = True
+    
+    city = models.CharField(
+        max_length=256,
+        blank=True,
+        null=True,
+    )
+    province = models.CharField(
+        max_length=256,
+        blank=True,
+        null=True,
+    )
+
+class AbstractPersonalProfile(models.Model):
+    class Meta:
+        abstract = True
+    
+    dob = models.DateField(
+        verbose_name="Date of Birth",
+        blank=True,
+        null=True,
+    )
+
+class AbstractContactProfile(models.Model):
+    class Meta:
+        abstract = True
+   
+    mobile_number = models.CharField(
+        max_length=64,
+        blank=True,
+        null=True,
+    )
+
+class AbstractSubscriptionProfile(models.Model):
+    class Meta:
+        abstract = True
+    
+    receive_sms = models.BooleanField(
+        default=False,
+    )
+    receive_email = models.BooleanField(
+        default=False,
+    )
+
+class AbstractWebuserProfile(AbstractProfileBase, AbstractAvatarProfile, AbstractContactProfile, AbstractLocationProfile, AbstractPersonalProfile, AbstractSocialProfile, AbstractSubscriptionProfile):
+    class Meta:
+        abstract = True
