@@ -10,6 +10,12 @@ setup(
     license='BSD',
     url='http://github.com/praekelt/django-profile',
     packages = find_packages(),
+    dependency_links = [
+        'https://github.com/praekelt/django-photologue/tarball/master#egg=django-photologue',
+    ],
+    install_requires = [
+        'django-photologue',
+    ],
     include_package_data=True,
     classifiers = [
         "Programming Language :: Python",
