@@ -52,6 +52,10 @@ class AbstractLocationProfile(models.Model):
     class Meta:
         abstract = True
     
+    address = models.TextField(
+        blank=True,
+        null=True,
+    )
     city = models.CharField(
         max_length=256,
         blank=True,
