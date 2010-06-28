@@ -58,7 +58,8 @@ from datetime import datetime
 from profile import utils
 from django.contrib.auth.models import User
 class UserProfileModel(User, utils.get_profile_model()):
-    pass
+    class Meta:
+        abstract = True
 
 class ProfileModelForm(ModelForm):
     class Meta:
