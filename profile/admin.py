@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 
 from profile import utils
 
+# add profile inline to user admin
 profile_model = utils.get_profile_model()
 
 if profile_model:
