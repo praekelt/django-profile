@@ -18,7 +18,7 @@ class SimpleBackend(SimpleBackend):
     
     def _get_redirect_url(self, request):
         """
-        Next gathered from sesion, then GET, then POST, then users absolute url.
+        Next gathered from session, then GET, then POST, then users absolute url.
         """
         if 'next' in request.session:
             next = request.session['next']
@@ -29,7 +29,7 @@ class SimpleBackend(SimpleBackend):
         elif 'next' in request.POST:
             return request.POST.get('next')
         else:
-            return user.get_absolute_url()
+            return request.user.get_absolute_url()
 
 def user_registered(sender, user, request, *args, **kwargs):
     profile = user.profile
