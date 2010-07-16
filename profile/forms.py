@@ -161,8 +161,9 @@ class ProfileForm(forms.Form):
                     setattr(self.profile, key, value)
 
         # set password
-        if self.cleaned_data['password1']:
-            self.user.set_password(self.cleaned_data['password1'])
+        if 'password1' in self.cleaned_data:
+            if self.cleaned_data['password1']:
+                self.user.set_password(self.cleaned_data['password1'])
 
         # set dob
         if 'dob_day' in self.cleaned_data and 'dob_month' in self.cleaned_data and 'dob_year' in self.cleaned_data:
