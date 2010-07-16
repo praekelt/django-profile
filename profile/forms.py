@@ -8,55 +8,10 @@ from profile.models import AbstractAvatarProfile, AbstractProfileBase, AbstractL
 
 from registration.forms import RegistrationForm
 
-class BaseUserProfileForm(forms.Form):
-    """
-    This is the base form from which all profile related forms should inherit.
-    It takes care of setting and saving User and Pofile objects for the form.
-    """
-    def __init__(self, profile, user, *args, **kwargs):
-        super(BaseUserProfileForm, self).__init__(*args, **kwargs)
-        self.profile = profile
-        self.user = user
-   
-    def get_initial(self, *args, **kwargs):
-        """
-        Gathers initial form values from user and profile objects
-        suitable for using as form's initial data.
-        """
-        initial = {}
-        for field in self.fields:
-            value = None
-            if hasattr(self.user, field):
-                value = getattr(self.user, field)
-            if hasattr(self.profile, field):
-                value = getattr(self.profile, field)
-            if value:
-                initial.update({
-                    field: value
-                })
-        return initial
-        
-    def save(self):
-        """
-        This method should be called when is_valid is true to save 
-        relevant fields to user and profile models.
-        """
-        for key, value in self.cleaned_data.items():
-            if hasattr(self.user, key):
-                setattr(self.user, key, value)
-            if hasattr(self.profile, key):
-                setattr(self.profile, key, value)
-
-        #if self.cleaned_data['password1']:
-        #    self.user.set_password(form.cleaned_data['password1'])
-
-        self.user.save()
-        self.profile.save()
-
-
 from datetime import datetime
 from profile import utils
 from django.contrib.auth.models import User
+
 class UserProfileModel(User, utils.get_profile_model()):
     class Meta:
         abstract = True
@@ -67,7 +22,7 @@ class ProfileModelForm(ModelForm):
 
 class ProfileForm(forms.Form):
     """
-    This is the generic profile form from which you can use for all your user profile forms.
+    This is the generic profile form which you can use for all your user profile forms.
     It takes care of setting and saving User and Pofile objects for the form. 
     You can provide it with field excludes to build specific forms, i.e. avatar change for, 
     subscriptions form etc.
@@ -193,7 +148,7 @@ class ProfileForm(forms.Form):
 
         return initial
         
-    def save(self):
+    def save(self, *args, **kwargs):
         """
         This method should be called when is_valid is true to save 
         relevant fields to user and profile models.
@@ -268,7 +223,7 @@ class SubscriptionsModelForm(ModelForm):
     class Meta:
         model = AbstractSubscriptionProfile
 
-class SubscriptionsForm(BaseUserProfileForm):
+class SubscriptionsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(SubscriptionsForm, self).__init__(*args, **kwargs)
         self.fields.update(SubscriptionsModelForm().fields)
