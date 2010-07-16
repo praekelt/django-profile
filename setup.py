@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-profile',
-    version='0.0.1',
+    version='0.0.2',
     description='Django user profile app.',
     long_description = open('README.rst', 'r').read(),
     author='Praekelt Foundation',
