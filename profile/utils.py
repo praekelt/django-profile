@@ -1,6 +1,9 @@
 from django.conf import settings
 
 def get_profile_model():
+    """
+    Returns configured user profile model or None if not found
+    """
     auth_profile_module = getattr(settings, 'AUTH_PROFILE_MODULE', None)
     profile_model = None
     if auth_profile_module:
