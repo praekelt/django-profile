@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-profile',
-    version='0.0.2',
+    version='0.0.3',
     description='Django user profile app.',
     long_description = open('README.rst', 'r').read(),
     author='Praekelt Foundation',
@@ -12,7 +12,7 @@ setup(
     packages = find_packages(),
     dependency_links = [
         'http://github.com/praekelt/django-photologue/tarball/master#egg=django-photologue',
-        'https://github.com/downloads/praekelt/eggs/django_registration-0.8_alpha_1-py2.6.egg#egg=django-registration'
+        'http://github.com/downloads/praekelt/public-eggs/django_registration-0.8_alpha_1-py2.6.egg#egg=django-registration'
     ],
     install_requires = [
         'django-photologue',
