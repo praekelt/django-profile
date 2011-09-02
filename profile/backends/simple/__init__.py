@@ -6,19 +6,22 @@ from registration.backends.simple import SimpleBackend
 
 from profile import utils
 
+
 class SimpleBackend(SimpleBackend):
     def get_form_class(self, request):
         return utils.get_profile_model().registration_form
 
     def post_registration_redirect(self, request, user):
         """
-        After registration, redirect to the next or otherwise user's absolute url.   
+        After registration, redirect to the next or
+        otherwise user's absolute url.
         """
         return (self._get_redirect_url(request), (), {})
-    
+
     def _get_redirect_url(self, request):
         """
-        Next gathered from session, then GET, then POST, then users absolute url.
+        Next gathered from session, then GET, then POST,
+        then users absolute url.
         """
         if 'next' in request.session:
             next = request.session['next']
@@ -30,6 +33,7 @@ class SimpleBackend(SimpleBackend):
             return request.POST.get('next')
         else:
             return request.user.get_absolute_url()
+
 
 def user_registered(sender, user, request, *args, **kwargs):
     profile = user.profile

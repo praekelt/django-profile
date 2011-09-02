@@ -17,8 +17,8 @@ if profile_model:
             ProfileInline,
         ]
 
-    # Unregister default django User admin 
+    # Unregister default django User admin.
     admin.site.unregister(User)
 
-    # Register our customized User admin 
+    # Register our customized User admin.
     admin.site.register(User, UserAdmin)
